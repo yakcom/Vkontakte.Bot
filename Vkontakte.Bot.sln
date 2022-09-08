@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vkontakte.Bot", "Vkontakte.Bot\Vkontakte.Bot.csproj", "{1D710FAE-5081-4EA8-8FA5-EECAF0F34759}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.csproj", "{349F488F-6D8C-4C4E-A076-FF384706E242}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D710FAE-5081-4EA8-8FA5-EECAF0F34759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D710FAE-5081-4EA8-8FA5-EECAF0F34759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D710FAE-5081-4EA8-8FA5-EECAF0F34759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D710FAE-5081-4EA8-8FA5-EECAF0F34759}.Release|Any CPU.Build.0 = Release|Any CPU
+		{349F488F-6D8C-4C4E-A076-FF384706E242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{349F488F-6D8C-4C4E-A076-FF384706E242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{349F488F-6D8C-4C4E-A076-FF384706E242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{349F488F-6D8C-4C4E-A076-FF384706E242}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E7572C63-E54B-43DC-AAA4-3C80DB403A56}
+	EndGlobalSection
+EndGlobal
