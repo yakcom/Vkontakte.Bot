@@ -58,3 +58,8 @@ namespace Example
 > Symbol [ , ] separates buttons on a line
 
 > Symbol [ / ] separates the text of the button and its characteristics
+
+####
+```c#
+VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1Line3,Button2Line3,Button3Line3");
+```
