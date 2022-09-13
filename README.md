@@ -88,4 +88,4 @@ VkBot.Send(id, $"Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
 > OneTime - keyboard hides on next message
 
 ## Example inline keyboard
-<img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/ButtonsIline.png"/>
+<img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/ButtonsInline.png"/>
