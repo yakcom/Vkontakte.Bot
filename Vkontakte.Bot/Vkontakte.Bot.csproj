@@ -10,4 +10,8 @@
     <PackageReference Include="VkNet" Version="1.71.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
 </Project>
