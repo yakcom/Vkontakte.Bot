@@ -51,3 +51,6 @@ namespace Example
     }
 }
 ```
+# Keyboard
+### Keyboard generated from string
+
