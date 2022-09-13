@@ -100,29 +100,33 @@ namespace Vkontakte.Bot
                 {
                     foreach (string Button in ButtonLine.Split(ks.b))
                     {
-                        KeyboardButtonColor Color;
-                        switch (Button.Split(ks.c)[1])
+                        KeyboardButtonColor Color = KeyboardButtonColor.Default;
+                        if (Button.Split(ks.c).Length > 1)
                         {
-                            default:
-                            case "D":
-                                Color = KeyboardButtonColor.Default;
-                                break;
-                            case "M":
-                                Color = KeyboardButtonColor.Primary;
-                                break;
-                            case "P":
-                                Color = KeyboardButtonColor.Positive;
-                                break;
-                            case "N":
-                                Color = KeyboardButtonColor.Negative;
-                                break;
-                            case "LOCATION":
-                                KeyboardBuilder.AddButton(new AddButtonParams { ActionType = KeyboardButtonActionType.Location });
-                                continue;
+                            
+                            switch (Button.Split(ks.c)[1])
+                            {
+                                case "D":
+                                    Color = KeyboardButtonColor.Default;
+                                    break;
+                                case "M":
+                                    Color = KeyboardButtonColor.Primary;
+                                    break;
+                                case "P":
+                                    Color = KeyboardButtonColor.Positive;
+                                    break;
+                                case "N":
+                                    Color = KeyboardButtonColor.Negative;
+                                    break;
+                                case "LOCATION":
+                                    KeyboardBuilder.AddButton(new AddButtonParams { ActionType = KeyboardButtonActionType.Location });
+                                    continue;
+                            }
                         }
                         string TextButton = Button.Split(ks.c)[0];
                         if (TextButton.Length == 0) TextButton = "null";
                         KeyboardBuilder.AddButton(TextButton, null, Color);
+                        if (Text == "")throw new Exception("Text cannot be empty !");
                     }
                     KeyboardBuilder.AddLine();
                 }
