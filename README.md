@@ -80,3 +80,12 @@ VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1L
 VkBot.Send(id, $"Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
 ```
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons2.png"/>
+
+# Additional functions arguments
+### Send function has 2 additional arguments
+> Inline - keyboard embedded in message
+
+> OneTime - keyboard hides on next message
+
+## Example inline keyboard
+
