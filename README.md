@@ -67,7 +67,7 @@ VkBot.Send(id, "Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1Li
 ```
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons.png"/><br><br><br>
 
-# Keyboard button characteristics
+# Keyboard button options
 
 | Expression |  Button  |
 | ---------- | -------- |
