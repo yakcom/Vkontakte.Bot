@@ -64,7 +64,7 @@ namespace Example
 VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1Line3,Button2Line3,Button3Line3");
 ```
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons.png"/>
-<br>
+\
 # Keyboard button characteristics
 
 | Expression |  Button  |
