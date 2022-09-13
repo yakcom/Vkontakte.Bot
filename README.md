@@ -52,5 +52,6 @@ namespace Example
 }
 ```
 # Keyboard
-### Keyboard generated from string
+### Keyboard generated from string 
+#### 3 main delimiters are used in the string:
 
