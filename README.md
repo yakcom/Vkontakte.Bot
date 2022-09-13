@@ -95,3 +95,8 @@ VkBot.Send(id, $"Test inline keyboard", "Primary/M,Default/D;Positive/P,Negative
 
 # Changing keyboard split characters
 ### Function ***SetKeyboardSplitters()*** allows you to specify your own characters as separators
+## Example inline keyboard
+```c#
+VkBot.SetKeyboardSplitters(':','.','|');
+VkBot.Send(id, $"Test inline keyboard", "Primary|M.Default|D:Positive|P.Negative|N");
+```
