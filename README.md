@@ -74,3 +74,8 @@ VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1L
 |     /P     | Positive |
 |     /N     | Negative |
 |  /LOCATION | Location |
+
+### Example keyboard with button characteristics
+```c#
+VkBot.Send(id, $"Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
+```
