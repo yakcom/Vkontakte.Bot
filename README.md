@@ -44,8 +44,8 @@ namespace Example
         static void Handle(long id, string text)
         {
             VkBot.Send(id, $"Hello Id: {id}\nYou Say: {text}");
-            VkBot.Send(id, $"Test Inline Keyboard", "PositiveButton/P,NegativeButton/N;DefaultButton/D,PrimaryButton/M", true);
-            VkBot.Send(id, $"Test Outline Keyboard", "Yes/P,No/N;/LOCATION");
+            VkBot.Send(id, "Test Inline Keyboard", "PositiveButton/P,NegativeButton/N;DefaultButton/D,PrimaryButton/M", true);
+            VkBot.Send(id, "Test Outline Keyboard", "Yes/P,No/N;/LOCATION");
         }
 
     }
@@ -63,7 +63,7 @@ namespace Example
 
 ## Example regular keyboard
 ```c#
-VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1Line3,Button2Line3,Button3Line3");
+VkBot.Send(id, "Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1Line3,Button2Line3,Button3Line3");
 ```
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons.png"/><br><br><br>
 
@@ -79,7 +79,7 @@ VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1L
 
 ## Example keyboard with button characteristics
 ```c#
-VkBot.Send(id, $"Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
+VkBot.Send(id, "Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
 ```
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons2.png"/><br><br><br>
 
@@ -91,7 +91,7 @@ VkBot.Send(id, $"Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
 
 ## Example inline keyboard
 ```c#
-VkBot.Send(id, $"Test inline keyboard", "Primary/M,Default/D;Positive/P,Negative/N",true);
+VkBot.Send(id, "Test inline keyboard", "Primary/M,Default/D;Positive/P,Negative/N",true);
 ```
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/ButtonsInline.png"/><br><br><br>
 
@@ -100,6 +100,6 @@ VkBot.Send(id, $"Test inline keyboard", "Primary/M,Default/D;Positive/P,Negative
 ## Example
 ```c#
 VkBot.SetKeyboardSplitters(':','.','|');
-VkBot.Send(id, $"Test inline keyboard", "Primary|M.Default|D:Positive|P.Negative|N");
+VkBot.Send(id, "Test inline keyboard", "Primary|M.Default|D:Positive|P.Negative|N");
 ```
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons3.png"/>
