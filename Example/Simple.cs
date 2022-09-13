@@ -9,7 +9,7 @@ namespace Example
         {
 
             VkBot = new VkontakteBot();
-            VkBot.Authorization("YOUR_VK_GROUP_API_TOKEN");
+            VkBot.Authorization("YOUR_VK_GROUP_API_TOKENN");
             VkBot.Start(Handle);
 
             Console.ReadLine();

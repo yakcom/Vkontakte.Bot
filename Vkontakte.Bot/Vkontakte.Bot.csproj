@@ -13,7 +13,8 @@
     <RepositoryUrl>https://github.com/yakcom/Vkontakte.Bot</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Vkontakte;Bot;VkNet</PackageTags>
-    <PackAsTool>True</PackAsTool>
+    <PackAsTool>False</PackAsTool>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,7 +30,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="https:\licenses.nuget.org\MIT" />
   </ItemGroup>
 
 </Project>
