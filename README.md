@@ -51,6 +51,8 @@ namespace Example
     }
 }
 ```
+<br><br><br>
+
 # Keyboard
 ### Keyboard generated from string with 3 major delimiters:
 > Symbol [ ; ] separates the vertical lines of the buttons
@@ -63,7 +65,7 @@ namespace Example
 ```c#
 VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1Line3,Button2Line3,Button3Line3");
 ```
-<img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons.png"/><br><br>
+<img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons.png"/><br><br><br>
 
 # Keyboard button characteristics
 
