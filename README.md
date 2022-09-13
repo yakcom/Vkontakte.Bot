@@ -92,3 +92,6 @@ VkBot.Send(id, $"Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
 VkBot.Send(id, $"Test inline keyboard", "Primary/M,Default/D;Positive/P,Negative/N",true);
 ```
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/ButtonsInline.png"/>
+
+# Changing keyboard split characters
+### Function ***SetKeyboardSplitters()*** allows you to specify your own characters as separators
