@@ -1,5 +1,5 @@
 <p align="center"><img  width="200" src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Vk.png"/></p>
-<p align="center"><img  width="200" src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/net.png"/></p>
+<p align="center"><img  width="30" src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/net.png"/></p>
 <h1 align="center">Vkontakte.Bot</h1>
 <h3 align="center">Library shell <a href="https://github.com/vknet/vk" target="_blank">VkNet</a> for easy creation of chat bots Vkontakte</h3>
 
