@@ -54,7 +54,7 @@ namespace Example
 <br><br><br>
 
 # Keyboard general
-### Keyboard generated from string with 3 major delimiters:
+### Keyboard generated from string with 3 main separators:
 > Symbol [ ; ] separates the vertical lines of the buttons
 
 > Symbol [ , ] separates buttons on a line
