@@ -59,7 +59,7 @@ namespace Example
 
 > Symbol [ / ] separates the text of the button and its characteristics
 
-## Example regular keyboard
+### Example regular keyboard
 ```c#
 VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1Line3,Button2Line3,Button3Line3");
 ```
@@ -75,7 +75,7 @@ VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1L
 |     /N     | Negative |
 |  /LOCATION | Location |
 
-## Example keyboard with button characteristics
+### Example keyboard with button characteristics
 ```c#
 VkBot.Send(id, $"Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
 ```
