@@ -66,7 +66,6 @@ VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1L
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons.png"/>
 
 ## Keyboard button characteristics
-### Button characteristics are indicated after the symbol [ / ]
 
 | Expression |  Button  |
 | ---------- | -------- |
