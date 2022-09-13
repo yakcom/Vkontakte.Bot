@@ -100,3 +100,4 @@ VkBot.Send(id, $"Test inline keyboard", "Primary/M,Default/D;Positive/P,Negative
 VkBot.SetKeyboardSplitters(':','.','|');
 VkBot.Send(id, $"Test inline keyboard", "Primary|M.Default|D:Positive|P.Negative|N");
 ```
+<img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons3.png"/>
