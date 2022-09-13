@@ -53,7 +53,7 @@ namespace Example
 ```
 <br><br><br>
 
-# Keyboard
+# Keyboard general
 ### Keyboard generated from string with 3 major delimiters:
 > Symbol [ ; ] separates the vertical lines of the buttons
 
@@ -81,7 +81,7 @@ VkBot.Send(id, $"Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1L
 ```c#
 VkBot.Send(id, $"Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
 ```
-<img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons2.png"/>
+<img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons2.png"/><br><br><br>
 
 # Additional functions arguments
 ### Send function has 2 additional arguments
@@ -93,7 +93,7 @@ VkBot.Send(id, $"Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
 ```c#
 VkBot.Send(id, $"Test inline keyboard", "Primary/M,Default/D;Positive/P,Negative/N",true);
 ```
-<img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/ButtonsInline.png"/>
+<img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/ButtonsInline.png"/><br><br><br>
 
 # Changing keyboard split characters
 ### Function ***SetKeyboardSplitters()*** allows you to specify your own characters as separators
