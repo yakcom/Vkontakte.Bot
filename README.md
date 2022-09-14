@@ -2,7 +2,8 @@
 <p align="center"><img  width="200" src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Vk.png"/></p>
 <h1 align="center">Vkontakte.Bot</h1></a>
 <h3 align="center">Library shell <a href="https://github.com/vknet/vk" target="_blank">VkNet</a> for easy creation of chat bots Vkontakte</h3><br>
-<a href="https://github.com/yakcom/Vkontakte.Bot/releases/"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=25&pause=100000&duration=3000&color=4392E7&center=true&vCenter=true&width=1000&lines=Download+latest+release" alt="Typing SVG" /></a>
+<a href="https://github.com/yakcom/Vkontakte.Bot/releases/"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=25&pause=100000&duration=3000&color=4392E7&center=true&vCenter=true&width=1000&lines=NuGet+latest+release" alt="Typing SVG" /></a>
+<a href="https://github.com/yakcom/Vkontakte.Bot/releases/"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=25&pause=100000&duration=3000&color=4392E7&center=true&vCenter=true&width=1000&lines=GiHub+latest+release" alt="Typing SVG" /></a>
 
 # Using
 ```c#
