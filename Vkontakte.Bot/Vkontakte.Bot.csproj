@@ -6,7 +6,7 @@
     <Nullable>disable</Nullable>
     <Title>Vkontakte.Bot</Title>
     <Company>yakcom</Company>
-    <Description>Library shell VkNet for easy creation of chat bots Vkontakte</Description>
+    <Description>Library shell VkNet for easy creation of group chat bots Vkontakte</Description>
     <Copyright>© Ilya Miller, 2022</Copyright>
     <PackageProjectUrl>https://github.com/yakcom/Vkontakte.Bot</PackageProjectUrl>
     <PackageIcon>VK.png</PackageIcon>
@@ -15,11 +15,17 @@
     <PackageTags>Vkontakte;Bot;VkNet</PackageTags>
     <PackAsTool>False</PackAsTool>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>Ilya Miller</Authors>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="VkNet" Version="1.71.0" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -30,6 +36,10 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="VkNet" Version="1.71.0" />
   </ItemGroup>
 
 </Project>
