@@ -64,6 +64,7 @@ namespace Vkontakte.Bot
                     {
                         if (Break) { Enable = Break = false; return; }
                         Handler(Message.FromId.Value, Message.Text);
+                        VkApi.Messages.MarkAsRead(Message.FromId.ToString());
                     }
                 }
             });
