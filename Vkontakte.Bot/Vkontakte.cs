@@ -22,7 +22,6 @@ namespace Vkontakte.Bot
         //-------------------
         private VkApi VkApi;
         private bool Break;
-        private bool Busy;
         //-------------------
 
         /// <summary>
@@ -89,7 +88,6 @@ namespace Vkontakte.Bot
         /// <param name="OneTime">Keyboard open only for one message</param>
         public void Send(long Id, string Text, string Keyboard = null, bool Inline = false, bool OneTime = false)
         {
-            while (Busy);Busy = true;
             if (!Authorized) throw new Exception("The current bot instance is not authorized !");
 
             KeyboardBuilder KeyboardBuilder = new KeyboardBuilder();
@@ -134,7 +132,6 @@ namespace Vkontakte.Bot
                 }
             }
             VkApi.Messages.Send(new MessagesSendParams { RandomId = new Random().Next(), UserId = Id, Message = Text, Keyboard = KeyboardBuilder.Build() });
-            Busy = false;
         }
 
 
