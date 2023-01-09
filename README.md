@@ -78,6 +78,7 @@ VkBot.Send(id, "Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1Li
 |     |P     | Positive |
 |     |N     | Negative |
 |  |LOCATION | Location |
+|    |URL    | Url      |
 
 ## Example keyboard with button options
 ```c#
