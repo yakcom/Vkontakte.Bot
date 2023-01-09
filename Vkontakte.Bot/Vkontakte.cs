@@ -1,5 +1,6 @@
 ﻿using VkNet;
 using VkNet.Model;
+using Newtonsoft.Json;
 using VkNet.Model.Keyboard;
 using VkNet.Enums.SafetyEnums;
 using VkNet.Model.RequestParams;
@@ -8,6 +9,11 @@ namespace Vkontakte.Bot
 {
     public class VkontakteBot
     {
+        /// <summary>
+        /// VkApi object use to expand functionality
+        /// See more https://vknet.github.io/vk/
+        /// </summary>
+        public VkApi VkApi;
 
         /// <summary>
         /// Is bot successfully authorized
@@ -18,11 +24,6 @@ namespace Vkontakte.Bot
         /// Is bot working
         /// </summary>
         public bool Enable { get; private set; }
-
-        //-------------------
-        private VkApi VkApi;
-        private bool Break;
-        //-------------------
 
         /// <summary>
         /// Authorization in the VKontakte group
@@ -54,17 +55,17 @@ namespace Vkontakte.Bot
             if (Enable) throw new Exception("The current bot instance is already running !"); ;
             if (!Authorized) throw new Exception("The current bot instance is not authorized !");
 
-            Enable = true;
             Task.Run(() =>
             {
-                while (true)
+                Enable = true;
+                while (Enable)
                 {
-                    List<Message> UnreadMessages = VkApi.Messages.GetConversations(new GetConversationsParams { Filter = GetConversationFilter.Unread }).Items.Select(u => u.LastMessage).ToList();
-                    foreach (Message Message in UnreadMessages)
+                    Thread.Sleep(100);
+                    foreach (var Message in GetMessages())
                     {
-                        if (Break) { Enable = Break = false; return; }
-                        Handler(Message.FromId.Value, Message.Text);
-                        VkApi.Messages.MarkAsRead(Message.FromId.ToString());
+                        if (!Enable)return;
+                        Handler(Message.Key, Message.Value);
+                        MarkAsRead(Message.Key);
                     }
                 }
             });
@@ -73,10 +74,7 @@ namespace Vkontakte.Bot
         /// <summary>
         /// Stop bot handler
         /// </summary>
-        public void Stop()
-        {
-            Break = true;
-        }
+        public void Stop()=>Enable = false;
 
         /// <summary>
         /// Send Message for user by id
@@ -91,6 +89,8 @@ namespace Vkontakte.Bot
             if (!Authorized) throw new Exception("The current bot instance is not authorized !");
 
             KeyboardBuilder KeyboardBuilder = new KeyboardBuilder();
+            KeyboardButtonColor Color = KeyboardButtonColor.Default;
+
             if (Keyboard != null)
             {
                 if (Inline) KeyboardBuilder.SetInline();
@@ -100,10 +100,9 @@ namespace Vkontakte.Bot
                 {
                     foreach (string Button in ButtonLine.Split(ks.b))
                     {
-                        KeyboardButtonColor Color = KeyboardButtonColor.Default;
+                        string TextButton = Button.Split(ks.c)[0];
                         if (Button.Split(ks.c).Length > 1)
                         {
-                            
                             switch (Button.Split(ks.c)[1])
                             {
                                 case "D":
@@ -121,17 +120,19 @@ namespace Vkontakte.Bot
                                 case "LOCATION":
                                     KeyboardBuilder.AddButton(new AddButtonParams { ActionType = KeyboardButtonActionType.Location });
                                     continue;
+                                case "URL":
+                                    KeyboardBuilder.AddButton(new AddButtonParams {Label=TextButton, ActionType = KeyboardButtonActionType.OpenLink, Link = Button.Split(ks.c)[2] });
+                                    continue;
                             }
                         }
-                        string TextButton = Button.Split(ks.c)[0];
-                        if (TextButton.Length == 0) TextButton = "null";
+                        Text = Text!="" ? Text : "null";
+                        TextButton = TextButton != "" ? TextButton : "null";
                         KeyboardBuilder.AddButton(TextButton, null, Color);
-                        if (Text == "")throw new Exception("Text cannot be empty !");
                     }
                     KeyboardBuilder.AddLine();
                 }
             }
-            VkApi.Messages.Send(new MessagesSendParams { RandomId = new Random().Next(), UserId = Id, Message = Text, Keyboard = KeyboardBuilder.Build() });
+            try {VkApi.Messages.Send(new MessagesSendParams { RandomId = new Random().Next(), UserId = Id, Message = Text, Keyboard = KeyboardBuilder.Build() }); } catch { }
         }
 
 
@@ -142,7 +143,30 @@ namespace Vkontakte.Bot
         /// <param name="b">Button columns splitter</param>
         /// <param name="c">Button parameter splitter</param>
         public void SetKeyboardSplitters(char a, char b, char c) { ks = (a, b, c); }
-        private (char a, char b, char c) ks = (';', ',', '/');
+        private (char a, char b, char c) ks = (';', ',', '|');
 
+        private void MarkAsRead(long id) 
+        { 
+            Request($"https://api.vk.com/method/messages.markAsRead?peer_id={id}&v=5.131&access_token={VkApi.Token}"); 
+        }
+        private Dictionary<long, string> GetMessages()
+        {
+            Dictionary<long, string> Messages = new Dictionary<long, string>();
+            string Result = Request($"https://api.vk.com/method/messages.getConversations?filter=unread&extended=0&v=5.131&access_token={VkApi.Token}");
+            if (Result == null) return Messages;
+            List<dynamic> MessageData = JsonConvert.DeserializeObject<List<dynamic>>(((dynamic)JsonConvert.DeserializeObject(Result))["response"]["items"].ToString());
+            foreach (dynamic Message in MessageData)
+                Messages.Add(long.Parse(Message["last_message"]["from_id"].ToString()), Message["last_message"]["text"].ToString());
+            return Messages;
+        }
+        private string Request(string url)
+        {
+            try{
+                using (HttpClient Web = new HttpClient())
+                using (HttpResponseMessage Res = Web.GetAsync(url).Result)
+                using (HttpContent Content = Res.Content)
+                    return Content.ReadAsStringAsync().Result;
+            }catch { return null; }
+        }
     }
 }
