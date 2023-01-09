@@ -46,8 +46,8 @@ namespace Example
         static void Handle(long id, string text)
         {
             VkBot.Send(id, $"Hello Id: {id}\nYou Say: {text}");
-            VkBot.Send(id, "Test Inline Keyboard", "PositiveButton/P,NegativeButton/N;DefaultButton/D,PrimaryButton/M", true);
-            VkBot.Send(id, "Test Outline Keyboard", "Yes/P,No/N;/LOCATION");
+            VkBot.Send(id, "Test Inline Keyboard", "PositiveButton|P,NegativeButton|N;DefaultButton|D,PrimaryButton|M", true);
+            VkBot.Send(id, "Test Outline Keyboard", "Yes|P,No|N;|LOCATION");
         }
 
     }
@@ -61,7 +61,7 @@ namespace Example
 
 > Symbol [ , ] separates buttons on a line
 
-> Symbol [ / ] separates the text of the button and its options
+> Symbol [ | ] separates the text of the button and its options
 
 ## Example regular keyboard
 ```c#
@@ -73,15 +73,15 @@ VkBot.Send(id, "Example Text", "Button1Line1;Button1Line2,Button2Line2;Button1Li
 
 | Expression |  Button  |
 | ---------- | -------- |
-|     /D     | Default  |
-|     /M     | Primary  |
-|     /P     | Positive |
-|     /N     | Negative |
-|  /LOCATION | Location |
+|     |D     | Default  |
+|     |M     | Primary  |
+|     |P     | Positive |
+|     |N     | Negative |
+|  |LOCATION | Location |
 
 ## Example keyboard with button options
 ```c#
-VkBot.Send(id, "Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
+VkBot.Send(id, "Test", "Primary|M;Default|D;Positive|P;Negative|N;|LOCATION");
 ```
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/Buttons2.png"/><br><br><br>
 
@@ -93,7 +93,7 @@ VkBot.Send(id, "Test", "Primary/M;Default/D;Positive/P;Negative/N;/LOCATION");
 
 ## Example inline keyboard
 ```c#
-VkBot.Send(id, "Test inline keyboard", "Primary/M,Default/D;Positive/P,Negative/N",true);
+VkBot.Send(id, "Test inline keyboard", "Primary|M,Default|D;Positive|P,Negative|N",true);
 ```
 <img src="https://github.com/yakcom/Vkontakte.Bot/blob/master/.github/ButtonsInline.png"/><br><br><br>
 
