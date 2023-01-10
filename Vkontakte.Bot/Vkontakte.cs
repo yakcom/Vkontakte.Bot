@@ -60,10 +60,10 @@ namespace Vkontakte.Bot
                 Enable = true;
                 while (Enable)
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                     foreach (var Message in GetMessages())
                     {
-                        if (!Enable)return;
+                        if (!Enable) return;
                         Handler(Message.Key, Message.Value);
                         MarkAsRead(Message.Key);
                     }
@@ -74,7 +74,7 @@ namespace Vkontakte.Bot
         /// <summary>
         /// Stop bot handler
         /// </summary>
-        public void Stop()=>Enable = false;
+        public void Stop() => Enable = false;
 
         /// <summary>
         /// Send Message for user by id
@@ -121,18 +121,18 @@ namespace Vkontakte.Bot
                                     KeyboardBuilder.AddButton(new AddButtonParams { ActionType = KeyboardButtonActionType.Location });
                                     continue;
                                 case "URL":
-                                    KeyboardBuilder.AddButton(new AddButtonParams {Label=TextButton, ActionType = KeyboardButtonActionType.OpenLink, Link = Button.Split(ks.c)[2] });
+                                    KeyboardBuilder.AddButton(new AddButtonParams { Label = TextButton, ActionType = KeyboardButtonActionType.OpenLink, Link = Button.Split(ks.c)[2] });
                                     continue;
                             }
                         }
-                        Text = Text!="" ? Text : "null";
+                        Text = Text != "" ? Text : "null";
                         TextButton = TextButton != "" ? TextButton : "null";
                         KeyboardBuilder.AddButton(TextButton, null, Color);
                     }
                     KeyboardBuilder.AddLine();
                 }
             }
-            try {VkApi.Messages.Send(new MessagesSendParams { RandomId = new Random().Next(), UserId = Id, Message = Text, Keyboard = KeyboardBuilder.Build() }); } catch { }
+            try { VkApi.Messages.Send(new MessagesSendParams { RandomId = new Random().Next(), UserId = Id, Message = Text, Keyboard = KeyboardBuilder.Build() }); } catch { }
         }
 
 
@@ -145,28 +145,30 @@ namespace Vkontakte.Bot
         public void SetKeyboardSplitters(char a, char b, char c) { ks = (a, b, c); }
         private (char a, char b, char c) ks = (';', ',', '|');
 
-        private void MarkAsRead(long id) 
-        { 
-            Request($"https://api.vk.com/method/messages.markAsRead?peer_id={id}&v=5.131&access_token={VkApi.Token}"); 
+        private void MarkAsRead(long id)
+        {
+            Request($"https://api.vk.com/method/messages.markAsAnsweredConversation?answered=1&peer_id={id}&v=5.131&access_token={VkApi.Token}");
         }
         private Dictionary<long, string> GetMessages()
         {
             Dictionary<long, string> Messages = new Dictionary<long, string>();
-            string Result = Request($"https://api.vk.com/method/messages.getConversations?filter=unread&extended=0&v=5.131&access_token={VkApi.Token}");
+            string Result = Request($"https://api.vk.com/method/messages.getConversations?filter=unanswered&extended=0&v=5.131&access_token={VkApi.Token}");
             if (Result == null) return Messages;
             List<dynamic> MessageData = JsonConvert.DeserializeObject<List<dynamic>>(((dynamic)JsonConvert.DeserializeObject(Result))["response"]["items"].ToString());
             foreach (dynamic Message in MessageData)
-                Messages.Add(long.Parse(Message["last_message"]["from_id"].ToString()), Message["last_message"]["text"].ToString());
+                try { Messages.Add(long.Parse(Message["last_message"]["from_id"].ToString()), Message["last_message"]["text"].ToString()); }catch { }
             return Messages;
         }
         private string Request(string url)
         {
-            try{
+            try
+            {
                 using (HttpClient Web = new HttpClient())
                 using (HttpResponseMessage Res = Web.GetAsync(url).Result)
                 using (HttpContent Content = Res.Content)
                     return Content.ReadAsStringAsync().Result;
-            }catch { return null; }
+            }
+            catch { return null; }
         }
     }
 }

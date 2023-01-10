@@ -16,7 +16,7 @@
     <PackAsTool>False</PackAsTool>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Ilya Miller</Authors>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
