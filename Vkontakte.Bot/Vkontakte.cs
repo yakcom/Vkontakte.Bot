@@ -33,6 +33,7 @@ namespace Vkontakte.Bot
         public bool Authorization(string Token)
         {
             VkApi = new VkApi();
+            VkApi.RequestsPerSecond = 5;
             VkApi.Authorize(new ApiAuthParams { AccessToken = Token });
             try
             {
@@ -60,12 +61,11 @@ namespace Vkontakte.Bot
                 Enable = true;
                 while (Enable)
                 {
-                    Thread.Sleep(200);
-                    foreach (var Message in GetMessages())
+                    foreach (var Message in VkApi.Messages.GetConversations(new GetConversationsParams { Filter = GetConversationFilter.Unread }).Items)
                     {
                         if (!Enable) return;
-                        Handler(Message.Key, Message.Value);
-                        MarkAsRead(Message.Key);
+                        Handler(Message.LastMessage.FromId.Value, Message.LastMessage.Text);
+                        VkApi.Messages.MarkAsRead(Message.LastMessage.FromId.ToString());
                     }
                 }
             });
@@ -164,7 +164,8 @@ namespace Vkontakte.Bot
             try
             {
                 using (HttpClient Web = new HttpClient())
-                using (HttpResponseMessage Res = Web.GetAsync(url).Result)
+                using (var Timeout = new CancellationTokenSource(new TimeSpan(0, 0, 5)))
+                using (HttpResponseMessage Res = Web.GetAsync(url, Timeout.Token).Result)
                 using (HttpContent Content = Res.Content)
                     return Content.ReadAsStringAsync().Result;
             }
