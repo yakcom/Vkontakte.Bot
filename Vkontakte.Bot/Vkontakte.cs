@@ -26,7 +26,7 @@ namespace Vkontakte.Bot
         public bool Enable { get; private set; }
 
         /// <summary>
-        /// Authorization in the VKontakte group
+        /// Authorization in the VKontakte group testtttttttttttttttt
         /// </summary>
         /// <param name="Token">VKontakte group api token</param>
         /// <returns></returns>
