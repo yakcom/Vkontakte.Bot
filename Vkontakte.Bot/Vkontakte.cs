@@ -1,20 +1,10 @@
-﻿using VkNet;
-using VkNet.Model;
+﻿using Flurl.Http;
 using Newtonsoft.Json;
-using VkNet.Model.Keyboard;
-using VkNet.Enums.SafetyEnums;
-using VkNet.Model.RequestParams;
 
 namespace Vkontakte.Bot
 {
     public class VkontakteBot
     {
-        /// <summary>
-        /// VkApi object use to expand functionality
-        /// See more https://vknet.github.io/vk/
-        /// </summary>
-        public VkApi VkApi;
-
         /// <summary>
         /// Is bot successfully authorized
         /// </summary>
@@ -25,6 +15,8 @@ namespace Vkontakte.Bot
         /// </summary>
         public bool Enable { get; private set; }
 
+        public string Token { get; private set; }
+
         /// <summary>
         /// Authorization in the VKontakte group
         /// </summary>
@@ -32,18 +24,12 @@ namespace Vkontakte.Bot
         /// <returns></returns>
         public bool Authorization(string Token)
         {
-            VkApi = new VkApi();
-            VkApi.RequestsPerSecond = 5;
-            VkApi.Authorize(new ApiAuthParams { AccessToken = Token });
-            try
-            {
-                VkApi.Groups.GetById(null, null, null);
-                return Authorized = true;
-            }
-            catch
-            {
-                return Authorized = false;
-            }
+            var json = Request($"https://api.vk.com/method/messages.getConversations?filter=unanswered&extended=0&v=5.131&access_token={Token}");
+            if (json == null) return false;
+            if (json["response"] == null) return false;
+            Authorized = true;
+            this.Token = Token;
+            return true;
         }
 
         /// <summary>
@@ -61,115 +47,40 @@ namespace Vkontakte.Bot
                 Enable = true;
                 while (Enable)
                 {
-                    foreach (var Message in VkApi.Messages.GetConversations(new GetConversationsParams { Filter = GetConversationFilter.Unread }).Items)
+                    Thread.Sleep(200);
+                    foreach (var Message in GetMessages())
                     {
                         if (!Enable) return;
-                        Handler(Message.LastMessage.FromId.Value, Message.LastMessage.Text);
-                        VkApi.Messages.MarkAsRead(Message.LastMessage.FromId.ToString());
+                        Handler(Message.Key, Message.Value);
+                        MarkAsAnswered(Message.Key);
                     }
                 }
             });
         }
 
-        /// <summary>
-        /// Stop bot handler
-        /// </summary>
-        public void Stop() => Enable = false;
-
-        /// <summary>
-        /// Send Message for user by id
-        /// </summary>
-        /// <param name="Id">User id for send message</param>
-        /// <param name="Text">Text for Message</param>
-        /// <param name="Keyboard">Regular expression generating keyboard</param>
-        /// <param name="Inline">Set Inline keyboard</param>
-        /// <param name="OneTime">Keyboard open only for one message</param>
         public void Send(long Id, string Text, string Keyboard = null, bool Inline = false, bool OneTime = false)
         {
             if (!Authorized) throw new Exception("The current bot instance is not authorized !");
 
-            KeyboardBuilder KeyboardBuilder = new KeyboardBuilder();
-            KeyboardButtonColor Color = KeyboardButtonColor.Default;
-
-            if (Keyboard != null)
-            {
-                if (Inline) KeyboardBuilder.SetInline();
-                if (!Inline && OneTime) KeyboardBuilder.SetOneTime();
-
-                foreach (string ButtonLine in Keyboard.Split(ks.a))
-                {
-                    foreach (string Button in ButtonLine.Split(ks.b))
-                    {
-                        string TextButton = Button.Split(ks.c)[0];
-                        if (Button.Split(ks.c).Length > 1)
-                        {
-                            switch (Button.Split(ks.c)[1])
-                            {
-                                case "D":
-                                    Color = KeyboardButtonColor.Default;
-                                    break;
-                                case "M":
-                                    Color = KeyboardButtonColor.Primary;
-                                    break;
-                                case "P":
-                                    Color = KeyboardButtonColor.Positive;
-                                    break;
-                                case "N":
-                                    Color = KeyboardButtonColor.Negative;
-                                    break;
-                                case "LOCATION":
-                                    KeyboardBuilder.AddButton(new AddButtonParams { ActionType = KeyboardButtonActionType.Location });
-                                    continue;
-                                case "URL":
-                                    KeyboardBuilder.AddButton(new AddButtonParams { Label = TextButton, ActionType = KeyboardButtonActionType.OpenLink, Link = Button.Split(ks.c)[2] });
-                                    continue;
-                            }
-                        }
-                        Text = Text != "" ? Text : "null";
-                        TextButton = TextButton != "" ? TextButton : "null";
-                        KeyboardBuilder.AddButton(TextButton, null, Color);
-                    }
-                    KeyboardBuilder.AddLine();
-                }
-            }
-            try { VkApi.Messages.Send(new MessagesSendParams { RandomId = new Random().Next(), UserId = Id, Message = Text, Keyboard = KeyboardBuilder.Build() }); } catch { }
+            //Request($"https://api.vk.com/method/messages.send?user_id={Id}&message={Text}&random_id={}");
         }
 
-
-        /// <summary>
-        /// Symbols used to create a keyboard
-        /// </summary>
-        /// <param name="a">Button lines splitter</param>
-        /// <param name="b">Button columns splitter</param>
-        /// <param name="c">Button parameter splitter</param>
-        public void SetKeyboardSplitters(char a, char b, char c) { ks = (a, b, c); }
-        private (char a, char b, char c) ks = (';', ',', '|');
-
-        private void MarkAsRead(long id)
-        {
-            Request($"https://api.vk.com/method/messages.markAsAnsweredConversation?answered=1&peer_id={id}&v=5.131&access_token={VkApi.Token}");
-        }
-        private Dictionary<long, string> GetMessages()
+            private Dictionary<long, string> GetMessages()
         {
             Dictionary<long, string> Messages = new Dictionary<long, string>();
-            string Result = Request($"https://api.vk.com/method/messages.getConversations?filter=unanswered&extended=0&v=5.131&access_token={VkApi.Token}");
-            if (Result == null) return Messages;
-            List<dynamic> MessageData = JsonConvert.DeserializeObject<List<dynamic>>(((dynamic)JsonConvert.DeserializeObject(Result))["response"]["items"].ToString());
+            var json = Request($"https://api.vk.com/method/messages.getConversations?filter=unanswered&extended=0&v=5.131&access_token={Token}");
+            if (json == null) return Messages;
+            List<dynamic> MessageData = JsonConvert.DeserializeObject<List<dynamic>>(json["response"]["items"].ToString());
             foreach (dynamic Message in MessageData)
-                try { Messages.Add(long.Parse(Message["last_message"]["from_id"].ToString()), Message["last_message"]["text"].ToString()); }catch { }
+                Messages.Add(long.Parse(Message["last_message"]["from_id"].ToString()), Message["last_message"]["text"].ToString());
             return Messages;
         }
-        private string Request(string url)
+        private void MarkAsAnswered(long id)
         {
-            try
-            {
-                using (HttpClient Web = new HttpClient())
-                using (var Timeout = new CancellationTokenSource(new TimeSpan(0, 0, 5)))
-                using (HttpResponseMessage Res = Web.GetAsync(url, Timeout.Token).Result)
-                using (HttpContent Content = Res.Content)
-                    return Content.ReadAsStringAsync().Result;
-            }
-            catch { return null; }
+            Request($"https://api.vk.com/method/messages.markAsAnsweredConversation?answered=1&peer_id={id}&v=5.131&access_token={Token}");
         }
+        
+        private dynamic Request(string Url) { try { return Url.GetJsonAsync<dynamic>().Result; } catch { return null; } }
+
     }
 }
