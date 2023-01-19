@@ -17,9 +17,9 @@ namespace Example
 
         static void Handle(long id, string text)
         {
-            //VkBot.Send(id, $"Hello Id: {id}\nYou Say: {text}");
-            //VkBot.Send(id, $"Test Inline Keyboard", "PositiveButton/P,NegativeButton/N;DefaultButton/D,PrimaryButton/M", true);
-            //VkBot.Send(id, $"Test Outline Keyboard", "Yes/P,No/N;/LOCATION");
+            VkBot.Send(id, $"Hello Id: {id}\nYou Say: {text}");
+            VkBot.Send(id, $"Test Inline Keyboard", "PositiveButton|P,NegativeButton|N;DefaultButton|D,PrimaryButton|M", true);
+            VkBot.Send(id, $"Test Outline Keyboard", "Yes|P,No|N;Location|LOCATION;Link|URL|https://vk.com");
         }
 
     }
