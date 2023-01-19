@@ -104,7 +104,7 @@ namespace Vkontakte.Bot
                     KeyboardBuild.buttons.Add(Line);
                 }
             }
-            Request($"https://api.vk.com/method/messages.send?user_id={Id}&message={Text}&random_id={new Random().Next()}&keyboard={JsonConvert.SerializeObject(KeyboardBuild)}&v=5.131&access_token={Token}");
+            Request($"https://api.vk.com/method/messages.send?user_id={Id}&message={Text}&random_id={new Random().Next()}&keyboard={Uri.EscapeDataString(JsonConvert.SerializeObject(KeyboardBuild))}&v=5.131&access_token={Token}");
         }
 
         /// <summary>
@@ -123,7 +123,10 @@ namespace Vkontakte.Bot
             if (json == null) return Messages;
             List<dynamic> MessageData = JsonConvert.DeserializeObject<List<dynamic>>(json["response"]["items"].ToString());
             foreach (dynamic Message in MessageData)
-                Messages.Add(long.Parse(Message["last_message"]["from_id"].ToString()), Message["last_message"]["text"].ToString());
+                if (Message["last_message"]["out"].ToString() == "0")
+                    Messages.Add(long.Parse(Message["last_message"]["from_id"].ToString()), Message["last_message"]["text"].ToString());
+                else
+                    MarkAsAnswered(long.Parse(Message["conversation"]["peer"]["id"].ToString()));     
             return Messages;
         }
         private void MarkAsAnswered(long id)
