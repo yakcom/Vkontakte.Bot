@@ -6,7 +6,7 @@
     <Nullable>disable</Nullable>
     <Title>Vkontakte.Bot</Title>
     <Company>yakcom</Company>
-    <Description>Library shell VkNet for easy creation of group chat bots Vkontakte</Description>
+    <Description>Library for easy creation of group chat bots Vkontakte</Description>
     <Copyright>© Ilya Miller, 2022</Copyright>
     <PackageProjectUrl>https://github.com/yakcom/Vkontakte.Bot</PackageProjectUrl>
     <PackageIcon>VK.png</PackageIcon>
