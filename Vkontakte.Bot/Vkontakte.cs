@@ -121,6 +121,7 @@ namespace Vkontakte.Bot
             Dictionary<long, string> Messages = new Dictionary<long, string>();
             var json = Request($"https://api.vk.com/method/messages.getConversations?filter=unanswered&extended=0&v=5.131&access_token={Token}");
             if (json == null) return Messages;
+            if (json["response"] == null) return Messages;
             List<dynamic> MessageData = JsonConvert.DeserializeObject<List<dynamic>>(json["response"]["items"].ToString());
             foreach (dynamic Message in MessageData)
                 if (Message["last_message"]["out"].ToString() == "0")
