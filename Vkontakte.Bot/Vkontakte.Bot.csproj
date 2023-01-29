@@ -7,7 +7,7 @@
     <Title>Vkontakte.Bot</Title>
     <Company>yakcom</Company>
     <Description>Library for easy creation of group chat bots Vkontakte</Description>
-    <Copyright>© Ilya Miller, 2022</Copyright>
+    <Copyright>© Ilya Miller, 2022-2023</Copyright>
     <PackageProjectUrl>https://github.com/yakcom/Vkontakte.Bot</PackageProjectUrl>
     <PackageIcon>VK.png</PackageIcon>
     <RepositoryUrl>https://github.com/yakcom/Vkontakte.Bot</RepositoryUrl>
